@@ -2,11 +2,9 @@
 Generate data following:
 https://www.jessicayung.com/generating-autoregressive-data-for-experiments/
 """
-import pandas as pd
 import pickle
 import importlib
-generate_data = importlib.import_module("99_generate_data_utils")
-ARData = generate_data.ARData
+ARData = importlib.import_module("99_generate_data_utils").ARData
 
 # Data params
 num_datapoints = 100
@@ -28,4 +26,4 @@ fixed_ar_coefficients = {2: [ 0.46152873, -0.29890739],
 
 data = ARData(num_datapoints, num_prev=input_size, test_size=test_size, noise_var=noise_var, coeffs=fixed_ar_coefficients[input_size])
 
-pickle.dump(data, open("data.ardata", "wb"))
+pickle.dump(data, open("../data/data.ardata", "wb"))

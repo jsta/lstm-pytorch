@@ -41,7 +41,7 @@ dtype = torch.float
 
 
 # make training and test sets in torch
-data = pickle.load(open("data.ardata", "rb"))
+data = pickle.load(open("../data/data.ardata", "rb"))
 
 X_train = torch.from_numpy(data.X_train).type(torch.Tensor)
 X_test = torch.from_numpy(data.X_test).type(torch.Tensor)
