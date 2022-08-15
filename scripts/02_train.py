@@ -7,6 +7,7 @@ import torch.nn as nn
 import pickle
 import importlib
 import numpy as np
+
 LSTM = importlib.import_module("99_lstm_class").LSTM
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -19,7 +20,7 @@ from matplotlib import pyplot as plt
 test_size = 0.2
 num_datapoints = 100
 
-num_train = int((1-test_size) * num_datapoints)
+num_train = int((1 - test_size) * num_datapoints)
 num_test = int(num_datapoints - num_train)
 
 # Network params
@@ -59,7 +60,13 @@ X_test = X_test.view([input_size, -1, 1])
 # Build model
 #####################
 
-model = LSTM(lstm_input_size, h1, batch_size=num_train, output_dim=output_dim, num_layers=num_layers)
+model = LSTM(
+    lstm_input_size,
+    h1,
+    batch_size=num_train,
+    output_dim=output_dim,
+    num_layers=num_layers,
+)
 
 loss_fn = torch.nn.MSELoss(size_average=False)
 
@@ -76,7 +83,7 @@ for t in range(num_epochs):
     # Initialise hidden state
     # Don't do this if you want your LSTM to be stateful
     model.hidden = model.init_hidden()
-    
+
     # Forward pass
     y_pred = model(X_train)
 
@@ -95,8 +102,6 @@ for t in range(num_epochs):
     optimiser.step()
 
 # https://pytorch.org/tutorials/beginner/saving_loading_models.html
-state = {'state_dict': model.state_dict(),
-         'optimizer': optimiser.state_dict()
-        }
+state = {"state_dict": model.state_dict(), "optimizer": optimiser.state_dict()}
 torch.save(state, "../data/lstm-baseline_model.pytorch")
 torch.save(y_pred, "../data/y_pred.pytorch")
