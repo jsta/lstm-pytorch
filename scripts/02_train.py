@@ -6,8 +6,11 @@ import torch
 import pickle
 import importlib
 import numpy as np
+import matplotlib.pyplot as plt
 
 LSTM = importlib.import_module("99_lstm_class").LSTM
+
+shim = ""  # "../"
 
 #####################
 # Set parameters
@@ -39,7 +42,7 @@ dtype = torch.float
 
 
 # make training and test sets in torch
-data = pickle.load(open("data/data.ardata", "rb"))
+data = pickle.load(open(shim + "data/data.ardata", "rb"))
 
 X_train = torch.from_numpy(data.X_train).type(torch.Tensor)
 X_test = torch.from_numpy(data.X_test).type(torch.Tensor)
@@ -101,5 +104,6 @@ for t in range(num_epochs):
 
 # https://pytorch.org/tutorials/beginner/saving_loading_models.html
 state = {"state_dict": model.state_dict(), "optimizer": optimiser.state_dict()}
-torch.save(state, "data/lstm-baseline_model.pytorch")
-torch.save(y_preds, "data/y_preds.pytorch")
+torch.save(state, shim + "data/lstm-baseline_model.pytorch")
+torch.save(y_preds, shim + "data/y_preds.pytorch")
+torch.save(hist, shim + "data/hist.pytorch")
