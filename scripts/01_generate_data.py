@@ -63,4 +63,4 @@ data = ARData(
     coeffs=fixed_ar_coefficients[input_size],
 )
 
-pickle.dump(data, open("../data/data.ardata", "wb"))
+pickle.dump(data, open("data/data.ardata", "wb"))

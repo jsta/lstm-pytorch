@@ -42,7 +42,7 @@ dtype = torch.float
 
 
 # make training and test sets in torch
-data = pickle.load(open("../data/data.ardata", "rb"))
+data = pickle.load(open("data/data.ardata", "rb"))
 
 X_train = torch.from_numpy(data.X_train).type(torch.Tensor)
 X_test = torch.from_numpy(data.X_test).type(torch.Tensor)
@@ -79,7 +79,6 @@ optimiser = torch.optim.Adam(model.parameters(), lr=learning_rate)
 hist = np.zeros(num_epochs)
 
 for t in range(num_epochs):
-    print(t)
     # Initialise hidden state
     # Don't do this if you want your LSTM to be stateful
     model.hidden = model.init_hidden()
@@ -103,5 +102,5 @@ for t in range(num_epochs):
 
 # https://pytorch.org/tutorials/beginner/saving_loading_models.html
 state = {"state_dict": model.state_dict(), "optimizer": optimiser.state_dict()}
-torch.save(state, "../data/lstm-baseline_model.pytorch")
-torch.save(y_pred, "../data/y_pred.pytorch")
+torch.save(state, "data/lstm-baseline_model.pytorch")
+torch.save(y_pred, "data/y_pred.pytorch")

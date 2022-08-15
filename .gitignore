@@ -1,3 +1,4 @@
 .envrc
-scripts/__pycache__
 .vscode
+data
+scripts/__pycache__
