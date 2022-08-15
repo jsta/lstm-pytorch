@@ -3,14 +3,11 @@ Training the model at:
 https://github.com/jessicayung/blog-code-snippets/blob/master/lstm-pytorch/lstm-baseline.py
 """
 import torch
-import torch.nn as nn
 import pickle
 import importlib
 import numpy as np
 
 LSTM = importlib.import_module("99_lstm_class").LSTM
-import pandas as pd
-from matplotlib import pyplot as plt
 
 #####################
 # Set parameters
@@ -78,6 +75,7 @@ optimiser = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 hist = np.zeros(num_epochs)
 
+y_preds = []
 for t in range(num_epochs):
     # Initialise hidden state
     # Don't do this if you want your LSTM to be stateful
@@ -85,6 +83,7 @@ for t in range(num_epochs):
 
     # Forward pass
     y_pred = model(X_train)
+    y_preds.append(y_pred)
 
     loss = loss_fn(y_pred, y_train)
     if t % 100 == 0:
@@ -103,4 +102,4 @@ for t in range(num_epochs):
 # https://pytorch.org/tutorials/beginner/saving_loading_models.html
 state = {"state_dict": model.state_dict(), "optimizer": optimiser.state_dict()}
 torch.save(state, "data/lstm-baseline_model.pytorch")
-torch.save(y_pred, "data/y_pred.pytorch")
+torch.save(y_preds, "data/y_preds.pytorch")

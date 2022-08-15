@@ -5,7 +5,7 @@ https://www.jessicayung.com/generating-autoregressive-data-for-experiments/
 import pickle
 import importlib
 
-ARData = importlib.import_module("99_generate_data_utils").ARData
+ARData = importlib.import_module("generate_data_utils").ARData
 
 # Data params
 num_datapoints = 100
